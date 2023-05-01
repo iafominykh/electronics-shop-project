@@ -28,6 +28,13 @@ def test_name():
     assert len(item1.name) <= 10
     assert item2.name == 'Refregerator'
 
+
+def test_str(return_date):
+    assert str(return_date) == 'Смартфон'
+
+def test_repr(return_date):
+    assert repr(return_date) == "Item('Смартфон', 5000, 20)"
+
 def test_instantiate_from_csv():
     item1 = Item('Смартфон', 10000, 1)
     item1.instantiate_from_csv()
