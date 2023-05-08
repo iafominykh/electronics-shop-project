@@ -67,3 +67,13 @@ class Item:
     def string_to_number(number):
         return_number = float(number)
         return int(return_number)
+
+
+    def __add__(self, other):
+        """Метод сложения количества"""
+        if not isinstance(other, Item):
+            raise Exception("Складывать можно только наследников класса Item.")
+        elif not isinstance(self, Item):
+            raise Exception("Складывать можно только наследников класса Item.")
+
+        return self.quantity + other.quantity
