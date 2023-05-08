@@ -2,10 +2,12 @@ import pytest
 
 from src.phone import Phone
 
+
 @pytest.fixture
 def return_date():
     """Описание фикстуры для тестов"""
     return Phone("Смартфон", 10000, 20, 1)
+
 
 
 def test_repr(return_date):
