@@ -21,7 +21,7 @@ class Item:
         self.quantity = quantity
         # Item.all.append(self)
         self.__class__.all.append(self)
-
+        super().__init__()
     def calculate_total_price(self) -> float:
         """
         Рассчитывает общую стоимость конкретного товара в магазине.
