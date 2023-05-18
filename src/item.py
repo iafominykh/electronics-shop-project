@@ -1,5 +1,5 @@
 import csv
-
+from src.Errorex import InstantiateCSVError
 
 class Item:
     """
@@ -56,13 +56,24 @@ class Item:
             raise Exception('Длина наименования товара превышает 10 символов')
 
     @classmethod
-    def instantiate_from_csv(cls):
-        with open('../src/items.csv') as file:
-            reader = csv.DictReader(file)
-            next(reader)
-            for row in reader:
-                cls(row['name'], float(row['price']), int(row['quantity']))
-
+    def instantiate_from_csv(cls, url='../src/items.csv'):
+        """
+        Класс-метод, инициализирующий экземпляры класса Item данными из файла src/items.csv
+        """
+        cls.all.clear()
+        try:
+            with open(url, 'r', encoding='windows-1251') as file:
+                file_reader = csv.DictReader(file, delimiter=',')
+                for value in file_reader:
+                    name, price, quantity = value.values()
+                    if quantity is None:
+                        raise InstantiateCSVError()
+                    else:
+                        cls(name, cls.string_to_number(price), cls.string_to_number(quantity))
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
+        except InstantiateCSVError as error:
+            raise InstantiateCSVError('Файл item.csv поврежден')
     @staticmethod
     def string_to_number(number):
         return_number = float(number)
